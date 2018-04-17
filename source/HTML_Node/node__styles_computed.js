@@ -1,16 +1,4 @@
 
-function getNode(selector){
-  document.querySelector(selector);
-}
-
-function getAll(selector){
-  document.querySelectorAll(selector);
-}
-
-// function getAllFromNode(node,selector){ 
-//   node.querySelectorAll(selector);
-// }
-
 function getNodeComputedStyles(node){
   // TODO- ERROR HANDLING / MESSAGE FEEDBACK / FILTER
   return getComputedStyle(node);
@@ -18,29 +6,24 @@ function getNodeComputedStyles(node){
 
 function getNodesAllComputedStyles(nodes){
   styleArr=[];
-  
   console.log(nodes);
-
   for( var i in nodes){
-
     if (style=getNodeComputedStyles( nodes[i] )){
       styleArr.push( style );
-    }    
+    }
   }
   return styleArr;
 }
 
 
-test1 = '.mobile-menu';
-
+test1 = '.container';
 
 nd = getNode(test1);
-nodes = getAll( '.mobile-menu *');
+nodes = getAll( '.container *');
 getNodesAllComputedStyles(nodes);
 console.log(nodes);
 
-st = getComputedStyle( document.querySelector('.mobile-menu'));
-
+st = getComputedStyle( document.querySelector('.container'));
 
 dir(st);
 st.cssText

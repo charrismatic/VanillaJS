@@ -76,6 +76,20 @@ function resetAll() {
 }
 
 
+// SHOW EVERYTHING
+function debugShowAll () {
+	// ADD DEBUG STYLESHEET
+	var style = "body *{display: block !important; color: #000 !important; outline: 1px solid rgba(127, 197, 255, 0.2) !important; position: relative !important; opacity: 1 !important; visibility: visible !important;}";
+	document.styleSheets[0].insertRule(style, 0);
+
+	// STRIP ELEMENT STYLE ATTRIBUTES
+	 var nodes = document.querySelectorAll('*');
+	[].forEach.call(nodes, function(node) {
+		node.style="";
+	});
+}
+
+
 
 function resetCustom( nodes, properties) {
 
@@ -125,6 +139,65 @@ function getAllCSS() {
       }, '');
   return allCSS;
 }
+
+
+//getMatchedCSSRules
+function getNodeCssRules(node) {
+
+  if (typeof(node) === "string") {
+    node = document.querySelector(node);
+  }
+
+  ruleArr = [];
+
+  rules = node.ownerDocument.defaultView.getMatchedCSSRules(node,'');
+  for( rule of rules){
+    ruleArr.push({
+      selector :  rule.selectorText,
+      cssText : rule.cssText
+    });
+  };
+
+  return ruleArr;
+}
+
+
+function makeStyleSheet(ruleArr) {
+  sheet="";
+
+  for(rule of ruleArr) {
+    console.log(rule);
+    sheet += rule.cssText + " \n";
+  }
+
+  return sheet;
+}
+
+
+function getAllNodeAllChildrenCssRules( selector ) {
+
+  var node=document.querySelector(selector)
+  var nodes = node.querySelectorAll('*');
+
+  var styleArr=[];
+  var sheet = "";
+
+  for ( node of nodes) {
+    styleArr.push( getNodeCssRules(node) );
+
+    sheet += makeStyleSheet(rules);
+  }
+  return sheet;
+}
+
+
+function getCss(){
+  var selector = '.addthis_inline_share_toolbox';
+  sheet = getAllNodeAllChildrenCssRules(selector);
+  console.log(sheet);
+}
+
+
 
 
 // USE WITH GET ALL TAGS / NODES

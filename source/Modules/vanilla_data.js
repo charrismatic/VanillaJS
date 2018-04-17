@@ -5,6 +5,8 @@
 // TODO: Get all X on a page (img url, a href, script src etc)
 // REF: https://drafts.csswg.org/cssom/
 
+// TODO: GET ALL FORMS ON PAGE, LOOK FOR HIDDEN TRACKERS, OR BAR THINGS
+
 /* UTILITIES */
 
 // THE BASISCS
@@ -47,9 +49,9 @@ $_ returns the value of the most recently evaluated expression.
 function getAllIds() {
   var id_list = [];
   var nodes = document.querySelectorAll('*');
-  [].forEach.call(elms, function(elm) {
-    if (elm.id!==""){
-      id_list.push( elm.id);
+  [].forEach.call(nodes, function(node) {
+    if (node.id!==""){
+      id_list.push( node.id);
     }
   });
   // console.log(id_list);
@@ -73,7 +75,6 @@ function getAllCSS() {
       }, '');
   return allCSS;
 }
-
 
 
 // USE WITH GET ALL TAGS / NODES
@@ -148,27 +149,32 @@ function getAllStylesheets () {
 }
 
 
-
 function getAllScripts(){
   return document.scripts;
 }
 
 
+function getNodeAttributes(node){
+  attrs =  node.attributes;
+  attrArr = {};
+  [].forEach.call(attrs, function( attr ) {
+      attrArr[attr.name] = attr.value;
+  });
+  //   console.table(attrArr);
+  return attrArr;
+}
+
+
+
 function getScriptsData(){
-
   var scriptArr = [];
-
   var filteredScripts = ["jquery", "google", "bootstrap"];
-
   var scripts = getAllScripts();
 
   [].forEach.call( scripts , function( script ) {
-
     var scriptObj = {};
-
     scriptObj.script_baseURI = script.baseURI;
     scriptObj.script_src = script.src;
-
     if (script.attributes.length  > 0) {
       scriptObj.script_attributes = getNodeAttributes(script);
     }
