@@ -1,4 +1,4 @@
-
+// TODO: GENERALIZE 
 
 var extract_object_property = ( data, name, options={recursive_limit:3} ) => {
    // console.log("searching:", data , " for ", name);
@@ -27,5 +27,6 @@ var extract_object_property = ( data, name, options={recursive_limit:3} ) => {
   });
 }
 
-// dump_obj( stylelist);
-// extract_object_property( stylelist, 'watch_path', { recursive_limit: 6 });
+node = getAllStylesheets();
+dump_obj(node);
+extract_object_property( node, 'cssText', { recursive_limit: 6 });

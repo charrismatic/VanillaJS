@@ -1,6 +1,6 @@
 
 
-var get_site_scripts = () => {
+var get_site_scripts = ( () => {
   var scripts = document.scripts;
   for (script of scripts) {
     if (script.src) {
@@ -9,4 +9,4 @@ var get_site_scripts = () => {
       console.log( script.baseURI, script.text);
     }
   }
-}
+})()

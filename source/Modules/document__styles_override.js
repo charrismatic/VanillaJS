@@ -27,9 +27,7 @@
 function addResetStyles() {
 
   var cls_reset_inline = "a, b, big, i, small, tt, abbr, acronym, cite, code, dfn, em, kbd, strong, samp, time, var, bdo, br, img, map, object, q, span, sub, sup, button, input, label, select, textarea { display: inline-block; float: none; padding: 1.5em 0; position: relative; width: initial; max-width: 100%; height: initial max-height: 100%; margin: 0.5em auto; padding: 0; border: 0; top: 0; left; 0; bottom: initial; right: initial;}";
-
   var cls_reset_block = "address, article, aside, blockquote, canvas, dd, div, dl, dt, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, hr, li, main, nav, ol, output, p, pre, section, table, tfoot, ul, video { position: relative; display: block; float: none; width: 100%; max-width: 100%; height: auto; max-height: auto; margin: 0.4em auto; padding: 0; border: 0; top: 0; left; 0; bottom: initial; right: initial; }";
-
   var cls_body_pad = "body { width: 90%; margin: auto; }";
   var cls_html_reset = "html, body { display: block; max-height: initia; height: auto; overflow: auto; padding: 0,  }";
 
@@ -41,16 +39,17 @@ function addResetStyles() {
 
 
 // SIMPLIFIED VIEW FOR EASY READING
-// TODO: WIP
 function addCleanView() {
   var cls_hide_junk = ".sidebar__content, .sidebar-container, #sidebar, .sidebar, sidebar, nav, .nav, .navigation, .nav-list { display: none !important; }";
-
   document.styleSheets[0].insertRule(cls_hide_junk, 0);
 }
 
+
 function removeStyleRules(custom_list) {
   var style_sheets = document.styleSheets;
-  []].forEach
+  [].forEach.call(nodes, function(el){
+  	el.style = "";
+  });
 }
 
 
@@ -148,9 +147,8 @@ function getClassInfo(selector) {
     "el-class": el.classList.value,
     "el-parent-id": el.parentNode.id ,
     "el-parent-class":  el.parentNode.classList.value,
-    "el-children-classlist": getChildClasses(selector + " *" )
+    "el-children-classlist": getChildClasses(selector+" *" ),
   }
-
   return node_info;
 }
 
@@ -189,3 +187,4 @@ shadowDivs.forEach(function(e) {
 });
 
 */
+		

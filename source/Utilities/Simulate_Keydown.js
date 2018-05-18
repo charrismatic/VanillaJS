@@ -1,5 +1,6 @@
-var e = new Event("keydown");
-  e.key="32";    // just enter the char you want to send 
+((e) => {
+  // just enter the char you want to send
+  e.key='32';
   e.keyCode=e.key.charCodeAt(0);
   e.which=e.keyCode;
   e.altKey=false;
@@ -7,4 +8,5 @@ var e = new Event("keydown");
   e.shiftKey=false;
   e.metaKey=false;
   e.bubbles=true;
-  document.dispatchEvent(e);
+  return document.dispatchEvent(e);
+})(new Event('keydown'));

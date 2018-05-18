@@ -16,34 +16,21 @@
  *  @example append_html('div', "<p>Hello Content</p>", {id:'', class:'', tag:'div'})
  */
 function append_html(target, html_content, options) {
-
   if ( ! target || target === "") {
     target = 'body';
   }
-
   var tagName = 'div';
   var className = '';
   var id = '';
   if (options && options !== ""){
-
-    if (options.tag) {
-      tagName = options.tag;
-    }
-
-    if (options.class){
-      className = options.class;
-    }
-
-    if (options.id){
-      id = options.id;
-    }
+    if (options.tag) { tagName = options.tag; }
+    if (options.class){ className = options.class; }
+    if (options.id){ id = options.id; }
   }
-
   var node = document.createElement(tagName);
   node.className += className;
   node.id = id;
   node.innerHTML = html_content;
-
   document.querySelector(target).appendChild(node);
   return true;
 }

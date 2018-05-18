@@ -1,5 +1,3 @@
-
-
 data_list.push( create_output_header());
 data_list.push( get_site_form_data() );
 data_list.push( get_site_meta_tags());

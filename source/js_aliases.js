@@ -36,7 +36,7 @@ function getAllText(nodes){
 }
 
 // nd[0].collectTextNodes()
- 
+
 function copyText(node) {
   node = parseIn(node);
   copy(node.innerText);

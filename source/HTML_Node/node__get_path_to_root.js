@@ -4,20 +4,26 @@
 
 // GET NODE TO ROOT PATH FOR CLONE JS
 // https://stackoverflow.com/questions/1484875/i-need-the-full-dom-node-path-of-element
-function rebuild_node_html_to_root (selector) {
+function rebuild_node_html_to_root (node) {
 
   var path = [];
-  var el = document.getElementById(selector);;
+  if ( typeof node === 'string' ) {
+    var node = document.getElementById(node);
+  } 
   do {
       path.unshift(
-        "<" + el.nodeName +
-        (el.className ? ' class="' + el.className + '"' : '') +
-        (el.id ? ' id="' + el.id + '"' : '')
+        "<" + node.nodeName +
+        (node.className ? ' class="' + node.className + '"' : '') +
+        (node.id ? ' id="' + node.id + '"' : '')
       );
-  } while ((el.nodeName.toLowerCase() != 'html') && (el = el.parentNode));
+  } while ((node.nodeName.toLowerCase() != 'html') && (node = node.parentNode));
   var html_path=path.join(">\n");
   console.log(html_path);
   return html_path;
 }
 
-rebuild_node_html_to_root("gc-wrapper");
+var node = $0;
+rebuild_node_html_to_root(node);
+
+// var headers = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+// for ( node of headers ) { console.log(node) }

@@ -6,10 +6,7 @@ function getNode(selector){
 }
 
 
-
-
 function getAllNodes(selector){
-
   nodes = document.querySelectorAll(selector);
   if (nodes.length > 1000) {
     console.warn("Query string returned more than 1000 nodes. Try a something more specific, until the filtering feature is completed");
@@ -19,7 +16,6 @@ function getAllNodes(selector){
   return nodes;
 }
 
-
 function getNodeAttributes(node){
   attrs =  node.attributes;
   attrArr = {};
@@ -27,21 +23,17 @@ function getNodeAttributes(node){
   [].forEach.call(attrs, function( attr ) {
       attrArr[attr.name] = attr.value;
   });
-
   //   console.table(attrArr);
   return attrArr;
 }
 
-
 //getMatchedCSSRules
 function getNodeCssRules(node) {
-
   if (typeof(node) === "string") {
     node = document.querySelector(node);
   }
 
   ruleArr = [];
-
   rules = node.ownerDocument.defaultView.getMatchedCSSRules(node,'');
   for( rule of rules){
     ruleArr.push({
@@ -49,7 +41,6 @@ function getNodeCssRules(node) {
       cssText : rule.cssText
     });
   };
-
 
   // console.table(ruleArr);
   return ruleArr;
@@ -60,7 +51,6 @@ function getNodeCssRules(node) {
 
 // GET ALL CHILD CLASSES FROM NODE
 function getNodeChildClasses(selector){
-
   // DO THE FIRST QUERY
   if (typeof(parents) === "string") {
     parents =  getNodeFromSelector(parents)
@@ -93,11 +83,8 @@ function getAllUniqueTags() {
   nodeList.forEach(function(node) {
     tagArr = [...new Set([...tagArr, node.tagName])];
   });
-
   return tagArr.sort().join(",").toLowerCase();
 }
-
-
 
 
 function getNodeName(node){
@@ -105,22 +92,17 @@ function getNodeName(node){
   var tagName = "";
   var nodeName = "";
   var className = "";
-
   tagName = node.tagName.toLowerCase();
   nodeName += tagName;
-
   if (node.id && node.id !==""){
     id += "#" + node.id;
     nodeName += id;
   }
-
   if (node.className && node.className !== ""){
     className = node.className.trim().replace(/^/,' ').replace(/\s+/g, ".");
     nodeName += className;
   }
-
-//   console.log(id,className,tagName,nodeName );
-
+  // console.log(id,className,tagName,nodeName );
   return {
     id: id,
     tagName: tagName,
@@ -128,8 +110,6 @@ function getNodeName(node){
     className: className,
   };
 }
-
-
 
 /// GET ALL UNQIUE DOM ELEMENTS FROM A
 // PARENT NODE
@@ -143,9 +123,7 @@ function getUniqueFromNode(_node) {
   if (typeof(_node) === "string") {
     _node = document.querySelector(_node);
   }
-
   node0 = getNodeName(_node);
-
   var root_node = {
     id: node0.id,
     tagName: node0.tagName,
@@ -161,7 +139,6 @@ function getUniqueFromNode(_node) {
     if ( data.nodeName ) { node_list  = [...new Set([...node_list, data.nodeName ])]; }
     if ( data.className ) { class_list = [...new Set([...class_list, data.className ])]; }
   });
-
   id_list.sort().join(",");
   tag_list.sort().join(",");
   node_list.sort().join(",");
@@ -182,8 +159,6 @@ function getUniqueFromNode(_node) {
 // RETURN CHILD NODE SELECTOR, VALUE
 // NodeList.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
 // HTMLCollection.prototype[Symbol.iterator] = Array.prototype[Symbol.iterator];
-
-
 function getAllAtributeXFromY(parents, attr) {
   var childAttrArr,
       parentArr = [];

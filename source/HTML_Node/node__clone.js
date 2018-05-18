@@ -39,16 +39,16 @@ function cloneNode(_node) {
     if ( data.nodeName ) { node_list  = [...new Set([...node_list, data.nodeName ])]; }
     if ( data.className ) { class_list = [...new Set([...class_list, data.className ])]; }
 
-    nodecss = getNodeCssRules( _node );
-
-    for ( rule in nodecss.nodeStylesheet){
-      node_stylesheet = [...new Set([...node_stylesheet, nodecss.nodeStylesheet[rule] ])];
-    }
+//     nodecss = getNodeCssRules( _node );
+    
+//     for ( rule in nodecss.nodeStylesheet){
+//       node_stylesheet = [...new Set([...node_stylesheet, nodecss.nodeStylesheet[rule] ])];
+//     }
 
     childNodeArr.push({
       _nodeName: data.nodeName,
       __pseudElm: getNodeHasPseudoElements( _node),
-      __cssRules: nodecss.nodeCssRules,
+//       __cssRules: nodecss.nodeCssRules,
       __events: getNodeEventListeners( _node  ),
       __attributes: getNodeAttributes( _node ),
       });
@@ -161,7 +161,7 @@ function downloadData(data, filename, type) {
 }
 
 
-node = getNode("#nav-mobile");
+node = document.querySelector("#wikiArticle");
 clone = cloneNode(node);
 cloneHTML = getCloneHTML(clone);
 // downloadData(cloneHTML, "test.txt", "text");
