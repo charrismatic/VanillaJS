@@ -36,13 +36,9 @@ function b64DecodeUnicode(str) {
 // b64DecodeUnicode('Cg=='); // "\n"
 // ```
 // *Unibabel implements common conversions using this strategy.
-
 // ### Solution #2 – rewrite the DOMs atob() and btoa() using JavaScript's TypedArrays and UTF-8
-
 // Use a TextEncoder polyfill such as TextEncoding (also includes legacy windows, mac, and ISO encodings), TextEncoderLite, combined with a Buffer and a Base64 implementation such as base64-js.
-
 // When a native TextEncoder implementation is not available, the most light-weight solution would be to use TextEncoderLite with base64-js. Use the browser implementation when you can.
-
 // The following function implements such a strategy. It assumes base64-js imported as <script type="text/javascript" src="base64js.min.js"/>. Note that TextEncoderLite only works with UTF-8.
 
 function Base64Encode(str, encoding = 'utf-8') {
