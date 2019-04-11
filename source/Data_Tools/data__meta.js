@@ -25,3 +25,4 @@ var metadata =( () => {
   return create_output_header();
 //   console.log()
 })()
+console.log(metadata);
