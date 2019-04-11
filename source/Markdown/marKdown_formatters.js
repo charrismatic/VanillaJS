@@ -40,36 +40,6 @@ console.log( markdown );
 
 
 
-function anchorlist_to_markdown ( url_list, options ) {
-  var mdList = '';
-  mdList += "\n\n";
-
-  if (options.title) {
-    mdList += "# " + options.title + "\n\n";
-  }
-  if (options.description) {
-    mdList += options.description  + "\n\n";
-  }
-  url_list.forEach( function( link )  {
-    line = "" +
-    " - [" +
-    link.innerText +
-    "](" +
-    link.href +
-    ") " +
-    "\n";
-
-    mdList += line;
-
-    //    console.log(link);
-    //    console.log(line);
-  });
-
-  mdList += '\n\n';
-  console.log( mdList );
-}
-
-
 function get_code_block_sections ( nodes ) {
   var output = "";
   // console.log( nodes );
