@@ -1,6 +1,6 @@
 
 // ARRAY MERGE
-const array_merge = (arrA, arrB) => {
+const array_merge = (arrA, ...arrB) => {
   if (arrB) {
     return [...new Set([...arrB, arrA ])];
   } else {

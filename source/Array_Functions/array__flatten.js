@@ -1,4 +1,4 @@
-// TODO: TEST THIS FUNCITON, THEN GENRALIZE OR REMOVE 
+// TODO: TEST THIS FUNCITON, THEN GENRALIZE OR REMOVE
 // var flattenTco = ([first, ...rest], accumulator) =>
 //   (first === undefined)
 //     ? accumulator
@@ -20,4 +20,19 @@ const array_flatten = list => list.reduce(
 );
 
 
-module.exports = array_flatten;
+// RECURSIVELY FLATTEN A MULTIDIMENSIONAL ARRAY
+const flatten_array = (data) => {
+  var flat = [];
+  if ( data.length > 1) {
+    data.forEach( function( node ){
+      if ( node.length > 1) {
+        flat = flat.concat( flatten_array(node));
+      } else {
+        flat = flat.concat( node );
+      }
+    });
+  } else {
+    flat = flat.concat( node );
+  }
+  return flat;
+};
