@@ -4,11 +4,9 @@
 
 // TODO: Get all X on a page (img url, a href, script src etc)
 // REF: https://drafts.csswg.org/cssom/
-
 // TODO: GET ALL FORMS ON PAGE, LOOK FOR HIDDEN TRACKERS, OR BAR THINGS
 
 /* UTILITIES */
-
 // THE BASISCS
 // Get the first <h1> element in the document
 // var h1 = document.getElementsByTagName("H1")[0];
@@ -18,28 +16,19 @@
 
 // // Set the value of the class attribute
 // att.value = "democlass";
-
 // // Add the class attribute to <h1>
 // h1.setAttributeNode(att);
-
 // // OR
 // document.getElementsByTagName("H1")[0].setAttribute("class", "some-class");
-
 // // REMOVE ATTRIBUTES
 // document.getElementsByTagName("H1")[0].removeAttribute("class");
-
-
 /*
 SHORTCUTS
 $(selector)  == document.querySelector()
 $$(selector) returns an array of elements that match the given CSS selector. This command is equivalent to calling document.querySelectorAll().
-\
 Note: If you are using a library such as jQuery that uses $, this functionality will be overwritten, and $ will correspond to that library's implementation.
-
 $0 - $4
-
 The $0, $1, $2, $3 and $4 commands work as a historical reference to the last five DOM elements inspected within the Elements panel or the last five JavaScript heap objects selected in the Profiles panel. $0 returns the most recently selected element or JavaScript object, $1 returns the second most recently selected one, and so on.
-
 $_
 $_ returns the value of the most recently evaluated expression.
 */
@@ -79,48 +68,38 @@ function getAllCSS() {
 
 // USE WITH GET ALL TAGS / NODES
 function getAllCSSRules() {
-
   sheets = getAllStylesheets();
-
   var allRuleArr = [];
-
   [].forEach.call(sheets, function( sheet ) {
-
     console.log( sheet );
     var ruleObj = {};
     var rules = sheet.rules;
     if (rules && rules.length > 1 ){
-
       var cssStyleRuleArr = [];
       var cssMediaRuleArr = [];
       var cssKeyframesRuleArr = [];
       var cssKeyframeRuleArr = [];
-
       [].forEach.call( rules , function( rule ) {
          if (rule.type === CSSRule.STYLE_RULE ) {
            ruleObj = ({
              cssStyleRule_selectorText:  rule.selectorText,
              cssStyleRule_style: rule.style.cssText
            });
-      //  cssStyleRuleArr = [...new Set([...cssStyleRuleArr, ruleObj ])];
+           //  cssStyleRuleArr = [...new Set([...cssStyleRuleArr, ruleObj ])];
             cssStyleRuleArr.push(ruleObj);
          }
-
         if (rule.type === CSSRule.MEDIA_RULE ) {
            // ruleObj = cssMediaRule_condition :
            console.log(rule);
            cssMediaRuleArr.push(rule);
         }
-
         if (rule.type === CSSRule.KEYFRAMES_RULE ) {
            cssKeyframesRuleArr.push(rule)
         }
-
         if (rule.type === CSSRule.KEYFRAME_RULE ) {
            cssKeyframeRuleArr.push(rule);
         }
-
-        });
+      });
 
       allRuleArr.push({
         stylesheet_href: sheet.href,
@@ -138,8 +117,7 @@ function getAllCSSRules() {
 
 
 function getAllStylesheets () {
-  sheets = []
-
+  sheets = [];
   for (var i=0; i < document.styleSheets.length; i++){
   var styleSheet = document.styleSheets[i];
     sheets.push(styleSheet);

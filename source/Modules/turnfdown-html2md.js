@@ -575,7 +575,6 @@ var html2md = ((options) => {
       /*
        * Set up window for Node.js
        */
-
       var root = (typeof window !== 'undefined' ? window : {});
 
       /*
@@ -585,8 +584,7 @@ var html2md = ((options) => {
       function canParseHTMLNatively () {
         var Parser = root.DOMParser;
         var canParse = false;
-
-        // Adapted from https://gist.github.com/1129031
+       // Adapted from https://gist.github.com/1129031
         // Firefox/Opera/IE throw errors on unsupported types
         try {
           // WebKit returns null on unsupported types

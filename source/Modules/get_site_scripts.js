@@ -51,5 +51,5 @@
   };
 
   console.log(log_site_scripts());
-  console.log(get_scripts_data ());
+  console.table(get_scripts_data ());
 })();

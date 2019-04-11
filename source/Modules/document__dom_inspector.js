@@ -5,7 +5,6 @@ function getNode(selector){
   return document.querySelector(selector);
 }
 
-
 function getAllNodes(selector){
   nodes = document.querySelectorAll(selector);
   if (nodes.length > 1000) {
