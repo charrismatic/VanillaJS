@@ -1,7 +1,78 @@
+
+function getNodeAttributes(node){
+  attrs =  node.attributes;
+  attrArr = {};
+
+  [].forEach.call(attrs, function( attr ) {
+      attrArr[attr.name] = attr.value;
+  });
+
+  //   console.table(attrArr);
+  return attrArr;
+}
+
+
+function getNodeEventListeners(node){
+
+  var events = getEventListeners(node)
+  var eventArr = [];
+
+  for (index in events) {
+    listenType = events[index];
+
+    for( listenNode in listenType ){
+      eventListener = listenType[listenNode];
+
+      eventArr.push({
+        event_type: eventListener.type,
+        event_listeners: eventListener.listener,
+        event_target: eventListener.listener.elem
+      });
+     }
+  return eventArr;
+  }
+}
+
+
+function getNodeHasPseudoElements(node) {
+  return {
+    has_after: getComputedStyle(node,':after').content || false ,
+    has_before: getComputedStyle(node,':before').content || false,
+    has_marker: getComputedStyle(node,'::marker').content || false
+  }
+}
+
+function getNodeName(node){
+  var id = "";
+  var tagName = "";
+  var nodeName = "";
+  var className = "";
+
+  tagName = node.tagName.toLowerCase();
+  nodeName += tagName;
+
+  if (node.id && node.id !==""){
+    id += "#" + node.id;
+    nodeName += id;
+  }
+
+  if (node.className && node.className !== ""){
+    className = node.className.trim().replace(/^/,' ').replace(/\s+/g, ".");
+    nodeName += className;
+  }
+
+//   console.log(id,className,tagName,nodeName );
+
+  return {
+    id: id,
+    tagName: tagName,
+    nodeName: nodeName,
+    className: className,
+  };
+}
 /// GET ALL UNQIUE DOM ELEMENTS FROM A
 // PARENT NODE
 function cloneNode(_node) {
-
   var id_list= [];
   var tag_list = [];
   var cssRules = {};
@@ -9,11 +80,9 @@ function cloneNode(_node) {
   var class_list = [];
   var childNodeArr = [];
   var node_stylesheet  = [];
-
   if (typeof(_node) === "string") {
     _node = document.querySelector(_node);
   }
-
   // TAKE SNAPSHOT OF EXISTING HTML
   var root_html = _node.outerHTML;
 
@@ -26,41 +95,31 @@ function cloneNode(_node) {
     nodeName: node0.nodeName,
     className: node0.className,
   }
-
-
   nodes = _node.querySelectorAll('*');
-
   nodes.forEach(function(_node) {
-
     data = getNodeName(_node);
-
     if ( data.id ) { id_list = [...new Set([...id_list, data.id ])]; }
     if ( data.tagName ) {tag_list = [...new Set([...tag_list, data.tagName ])] }
     if ( data.nodeName ) { node_list  = [...new Set([...node_list, data.nodeName ])]; }
     if ( data.className ) { class_list = [...new Set([...class_list, data.className ])]; }
-
-//     nodecss = getNodeCssRules( _node );
-    
-//     for ( rule in nodecss.nodeStylesheet){
-//       node_stylesheet = [...new Set([...node_stylesheet, nodecss.nodeStylesheet[rule] ])];
-//     }
-
+    //  nodecss = getNodeCssRules( _node );
+    //  for ( rule in nodecss.nodeStylesheet){
+    //    node_stylesheet = [...new Set([...node_stylesheet, nodecss.nodeStylesheet[rule] ])];
+    //  }
     childNodeArr.push({
       _nodeName: data.nodeName,
-      __pseudElm: getNodeHasPseudoElements( _node),
-//       __cssRules: nodecss.nodeCssRules,
+      _pseudElm: getNodeHasPseudoElements( _node),
+      // __cssRules: nodecss.nodeCssRules,
       __events: getNodeEventListeners( _node  ),
       __attributes: getNodeAttributes( _node ),
       });
   });
 
   console.log(node_stylesheet);
-
   id_list.sort().join(",");
   tag_list.sort().join(",");
   node_list.sort().join(",");
   class_list.sort().join(",");
-
   node_stylesheet.sort().join(';');
    console.log(node_stylesheet);
 
@@ -78,7 +137,6 @@ function cloneNode(_node) {
 
 
 function createClone(cloned){
-
   var html  = '<!DOCTYPE html>' + "\r\n" +
   '<html><head>' + "\r\n" +
   '<title>CloneDoc</title>' +
@@ -93,14 +151,12 @@ function createClone(cloned){
         document.write(html);
         document.close();
     }
-
-
-// rules = cloned.nodeStylesheet.join('');
-// document.head.appendChild(cloneStyles);
-//     for (ruleIndex in rules) {
-//       ruleTxt = rule[ruleIndex];
-//       console.log(ruleTxt);
-//       document.styleSheets[0].insertRule(ruleTxt , 0);
+  // rules = cloned.nodeStylesheet.join('');
+  // document.head.appendChild(cloneStyles);
+  // for (ruleIndex in rules) {
+  //   ruleTxt = rule[ruleIndex];
+  //   console.log(ruleTxt);
+  //   document.styleSheets[0].insertRule(ruleTxt , 0);
 //     }
 }
 
@@ -138,30 +194,28 @@ function getCloneHTML(cloned){
 //     }
 // })(console)
 
-
-
- // Function to download data to a file
+// Function to download data to a file
 function downloadData(data, filename, type) {
   // https://stackoverflow.com/questions/13405129/javascript-create-and-save-file
-    var file = new Blob([data], {type: type});
-    if (window.navigator.msSaveOrOpenBlob) // IE10+
-        window.navigator.msSaveOrOpenBlob(file, filename);
-    else { // Others
-        var a = document.createElement("a"),
-                url = URL.createObjectURL(file);
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(function() {
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-        }, 0);
-    }
+  var file = new Blob([data], {type: type});
+  if (window.navigator.msSaveOrOpenBlob) // IE10+
+      window.navigator.msSaveOrOpenBlob(file, filename);
+  else { // Others
+    var a = document.createElement("a"),
+        url = URL.createObjectURL(file);
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function() {
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }, 0);
+  }
 }
 
-
-node = document.querySelector("#wikiArticle");
+// node = document.querySelector("#wikiArticle");
+node = $0;
 clone = cloneNode(node);
 cloneHTML = getCloneHTML(clone);
 // downloadData(cloneHTML, "test.txt", "text");

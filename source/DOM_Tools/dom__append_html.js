@@ -13,24 +13,27 @@
  *      tag; 'div'
  *    }
  *
- *  @example append_html('div', "<p>Hello Content</p>", {id:'', class:'', tag:'div'})
+  *  @example append_html("<p>Hello Content</p>", {target:'body',id:'',className:'',tagName:'div'})
  */
-function append_html(target, html_content, options) {
-  if ( ! target || target === "") {
-    target = 'body';
-  }
-  var tagName = 'div';
-  var className = '';
-  var id = '';
-  if (options && options !== ""){
-    if (options.tag) { tagName = options.tag; }
-    if (options.class){ className = options.class; }
-    if (options.id){ id = options.id; }
-  }
-  var node = document.createElement(tagName);
-  node.className += className;
-  node.id = id;
-  node.innerHTML = html_content;
-  document.querySelector(target).appendChild(node);
-  return true;
-}
+const append_html = (content, options) => {
+   var base;
+   var defaults = {
+     target: 'body',
+     tagName: 'div',
+     className: '',
+     id: ''
+   };
+   var data = Object.assign({}, defaults, options);
+
+   var node = document.createElement(data.tagName);
+   node.className += data.className;
+   node.id = data.id;
+   node.innerHTML = content;
+
+   if (base = document.querySelector(`${data.target}`)) {
+     base.appendChild(node);
+     return true;
+   } else {
+     return false;
+   }
+};
